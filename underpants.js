@@ -21,6 +21,9 @@ var _ = {};
 *   _.identity({a: "b"}) === {a: "b"}
 */
 
+_.identity = function(value) {
+    return value;
+};
 
 /** _.typeOf
 * Arguments:
@@ -42,6 +45,27 @@ var _ = {};
 * _.typeOf([1,2,3]) -> "array"
 */
 
+_.typeOf = function(value) {
+    if (Array.isArray(value)) {
+        return "array";
+    } else if (value === null) {
+        return "null";
+    } else if (value instanceof Date) {
+        return "Date";
+    } else if (typeof value === 'object') {
+        return "object";
+    } else if (typeof value === 'string') {
+        return "string";
+    } else if (typeof value === 'number') {
+        return "number";
+    } else if (typeof value === 'function') {
+        return "function";
+    } else if  (typeof value  === 'boolean') {
+        return "boolean";
+    } else {
+        return "undefined"
+    }
+}
 
 /** _.first
 * Arguments:
@@ -60,6 +84,24 @@ var _ = {};
 *   _.first(["a", "b", "c"], 1) -> "a"
 *   _.first(["a", "b", "c"], 2) -> ["a", "b"]
 */
+
+_.first = function(array, number) {
+    const output = [];
+    if (!Array.isArray(array)) {
+        return [];
+    } else if (number > array.length) {
+        return array;
+    } else if (number < 0) {
+        return [];
+    } else if (typeof number !== 'number' && number !== NaN) {
+        return array[0];
+    } else {
+        for (let i = 0; i < number; i++) {
+            output.push(array[i])
+        }
+    }
+    return output;
+}
 
 
 /** _.last
@@ -80,6 +122,24 @@ var _ = {};
 *   _.last(["a", "b", "c"], 2) -> ["b", "c"]
 */
 
+_.last = function(array, number) {
+    const output = [];
+    const count = (array.length - 1) - number
+    if (!Array.isArray(array)) {
+        return [];
+    } else if (number > array.length) {
+        return array;
+    } else if (number < 0) {
+        return [];
+    } else if (typeof number !== 'number' && number !== NaN) {
+        return array[array.length - 1];
+    } else {
+        for (let i = array.length - 1; i > count; i--) {
+            output.unshift(array[i])
+        }
+    }
+    return output;
+}
 
 /** _.indexOf
 * Arguments:
@@ -97,6 +157,15 @@ var _ = {};
 *   _.indexOf(["a","b","c"], "d") -> -1
 */
 
+_.indexOf = function(array, value) {
+    for (var i = 0; i < array.length; i++) {
+        if (value === array[i]) {
+            return i
+        }
+    }
+    return -1
+}
+console.log(_.indexOf(["a","b","c"], "c"))
 
 /** _.contains
 * Arguments:
@@ -113,6 +182,17 @@ var _ = {};
 *   _.contains([1,"two", 3.14], "two") -> true
 */
 
+_.contains = function(array, value) {
+    if (value === undefined) {
+        return false;
+    }
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] === value) {
+            return true;
+        }
+    }
+    return false;
+}
 
 /** _.each
 * Arguments:
@@ -129,6 +209,18 @@ var _ = {};
 *   _.each(["a","b","c"], function(e,i,a){ console.log(e)});
 *      -> should log "a" "b" "c" to the console
 */
+
+_.each = function(collection, func) {
+    if (Array.isArray(collection)) {
+        for (let i = 0; i < collection.length; i++) {
+            func(collection[i], i, collection);
+        }
+    } else {
+        for (let key in collection) {
+            func(collection[key], key, collection)
+        }
+    }
+}
 
 
 /** _.unique
@@ -157,6 +249,16 @@ var _ = {};
 * Extra Credit:
 *   use _.each in your implementation
 */
+
+_.filter = function(array, func) {
+    const output = [];
+    for (let i = 0; i < array.length; i++) {
+        if (func(array[i], i, array)) {
+            output.push(array[i])
+        }
+    }
+    return output;
+};
 
 
 /** _.reject
@@ -209,6 +311,26 @@ var _ = {};
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
 
+// _.map = function(collection, func) {
+//     const output = [];
+//     if (Array.isArray(collection)) {
+//         for (let i = 0; i < collection.length; i++) {
+//             if (func(collection[i], i, collection)) {
+//                 output.push(collection[i])
+//             }
+//         }
+//     } else {
+//         for (let key in collection) {
+//             if (func(collection[key], key, collection)) {
+//                 output.push(key + collection[key])
+//             }
+//         }
+//     }
+//     return output;
+// }
+// console.log(_.map([1,2,3,4], function(e){return e * 2})); // [2, 4, 6, 8]
+
+// console.log(_.map({ a: 1, b: 2 }, function(e){ return e * 2})); // [2, 4]
 
 /** _.pluck
 * Arguments:
