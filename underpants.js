@@ -510,19 +510,22 @@ _.some = function(collection, func) {
 
 _.reduce = function(array, func, seed) {
     let output = 0;
-    let tempArr = [];
     if (seed === undefined) {
         for (let i = 0; i < array.length; i++) {
-            output = func(output, array[i], i)
+            if (i < 1) {
+                output = func(array[0], array[i], i)
+            } else {
+                output = func(output, array[i], i)
+            }
         }
         return output;
     } else {
         for (let i = 0; i < array.length; i++) {
-            tempArr.push(array[i]);
-            tempArr.unshift(seed);
-        }
-        for (let i = 0; i < tempArr.length; i++) {
-            output = func(output, tempArr[i], i);
+            if (i < 1) {
+                output = func(seed, array[i], i)
+            } else {
+                output = func(output, array[i], i)
+            }
         }
         return output;
     }
