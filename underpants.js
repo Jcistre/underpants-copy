@@ -509,15 +509,22 @@ _.some = function(collection, func) {
 */
 
 _.reduce = function(array, func, seed) {
+    // output variable
     let output = 0;
+    // if seed is undefined section
     if (seed === undefined) {
+        // for loop to iterate over array
         for (let i = 0; i < array.length; i++) {
+            // if on first iteration
             if (i < 1) {
+                // use first value on array as previous result
                 output = func(array[0], array[i], i)
             } else {
+                // normal from there
                 output = func(output, array[i], i)
             }
         }
+        // return output
         return output;
     } else {
         for (let i = 0; i < array.length; i++) {
