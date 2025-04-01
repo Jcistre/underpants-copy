@@ -511,10 +511,9 @@ _.some = function(collection, func) {
 _.reduce = function(array, func, seed) {
     let output = 0;
     let tempArr = [];
-    
     if (seed === undefined) {
         for (let i = 0; i < array.length; i++) {
-            output += func(array[i])
+            output = func(output, array[i], i)
         }
         return output;
     } else {
@@ -523,7 +522,7 @@ _.reduce = function(array, func, seed) {
             tempArr.unshift(seed);
         }
         for (let i = 0; i < tempArr.length; i++) {
-            output += func(array[i]);
+            output = func(output, tempArr[i], i);
         }
         return output;
     }
@@ -543,6 +542,10 @@ _.reduce = function(array, func, seed) {
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
+
+// _.extend = function(...obj) {
+
+// }
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
