@@ -510,33 +510,25 @@ _.some = function(collection, func) {
 
 _.reduce = function(array, func, seed) {
     // output variable
-    let output = 0;
+    let output;
     // if seed is undefined section
     if (seed === undefined) {
+        output = array[0]
         // for loop to iterate over array
-        for (let i = 0; i < array.length; i++) {
-            // if on first iteration
-            if (i < 1) {
-                // use first value on array as previous result
-                output = func(array[0], array[i], i)
-            } else {
-                // normal from there
-                output = func(output, array[i], i)
-            }
+        for (let i = 1; i < array.length; i++) {
+            // normal from there
+            output = func(output, array[i], i)
         }
         // return output
         return output;
     } else {
+        output = seed
         for (let i = 0; i < array.length; i++) {
-            if (i < 1) {
-                output = func(seed, array[i], i)
-            } else {
                 output = func(output, array[i], i)
             }
-        }
         return output;
+        }
     }
-}
 
 /** _.extend
 * Arguments:
