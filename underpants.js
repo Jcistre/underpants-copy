@@ -363,14 +363,13 @@ _.map = function(collection, func) {
 */
 
 _.pluck = function(array, prop) {
-    let output = [];
-    for (let i = 0; i < array.length; i++) {
-        for (let key in array[i]) {
+    let output = _.map(array, function(obj) {
+        for (let key in obj) {
             if (key === prop) {
-            output.push(array[i][key])
+                return obj[key]
             }
         }
-    }
+    });
     return output;
 }
 
@@ -545,9 +544,11 @@ _.reduce = function(array, func, seed) {
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
 
-// _.extend = function(...obj) {
-
-// }
+_.extend = function(obj1, obj2, ...obj) {
+    let output = obj1;
+    Object.assign(output, obj2, ...obj)
+    return output;
+}
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
