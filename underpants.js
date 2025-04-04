@@ -544,9 +544,9 @@ _.reduce = function(array, func, seed) {
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
 
-_.extend = function(obj1, obj2, ...obj) {
+_.extend = function(obj1, ...obj) {
     let output = obj1;
-    Object.assign(output, obj2, ...obj)
+    Object.assign(output, ...obj)
     return output;
 }
 
